@@ -6,7 +6,7 @@ TOKEN = "8888294669:AAERHBxpagyK-xDpXsOHSJ3U-LDpQZzKDQk"
 PROXY_URL = "http://proxy.server:3128"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('أهلاً بك! تم تحديث البوت بنجاح.')
+    await update.message.reply_text('أهلاً بك! أنا أعمل الآن بنجاح تام.')
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_text = update.message.text
