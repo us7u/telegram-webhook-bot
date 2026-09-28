@@ -4,6 +4,9 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 TOKEN = "8948727654:AAGgAsVBYmU70kvNnhnJkx0XZTOyW0KyvOE"
 
+# إعدادات البروكسي المجاني الخاص بـ PythonAnywhere
+PROXY_URL = "http://proxy.server:3128"
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text('تم تفعيل التحكم. أرسل الأوامر أو أي رسالة الآن.')
 
@@ -13,12 +16,16 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(response)
 
 def main():
-    application = Application.builder().token(TOKEN).build()
+    # ربط البوت بالبروكسي الخاص بـ PythonAnywhere
+    application = (
+        Application.builder()
+        .token(TOKEN)
+        .get_updates_proxy_url(PROXY_URL)
+        .proxy_url(PROXY_URL)
+        .build()
+    )
     
-    # معالج أمر /start
     application.add_handler(CommandHandler("start", start))
-    
-    # معالج لجميع النصوص العادية (مثل مرحبا وغيرها)
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     
     application.run_polling(allowed_updates=Update.ALL_TYPES)
